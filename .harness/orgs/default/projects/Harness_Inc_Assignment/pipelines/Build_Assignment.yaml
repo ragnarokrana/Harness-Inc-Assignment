@@ -1,9 +1,8 @@
 pipeline:
-  name: Build - Assignment
+  name: ci-build-pipeline
   identifier: Build_Assignment
   projectIdentifier: Harness_Inc_Assignment
   orgIdentifier: default
-  tags: {}
   properties:
     ci:
       codebase:
@@ -11,18 +10,11 @@ pipeline:
         build: <+input>
   stages:
     - stage:
-        name: Build and Push
-        identifier: Build_and_Push
-        description: ""
+        name: Build
+        identifier: Build
         type: CI
         spec:
           cloneCodebase: true
-          caching:
-            enabled: false
-            override: true
-            paths: []
-          buildIntelligence:
-            enabled: false
           platform:
             os: Linux
             arch: Amd64
@@ -33,13 +25,15 @@ pipeline:
           execution:
             steps:
               - step:
+                  name: Build and Push
+                  identifier: Build_and_Push
                   type: BuildAndPushDockerRegistry
-                  name: BuildAndPushDockerRegistry_1
-                  identifier: BuildAndPushDockerRegistry_1
                   spec:
-                    connectorRef: account.harnessImage
-                    repo: <+stage.variables.DockerRepo>
+                    connectorRef: Artifactory_Connector
+                    repo: docker-local/harness-demo-app
                     tags:
-                      - <+stage.variables.Tags>
+                      - <+pipeline.sequenceId>
+                    dockerfile: ./Dockerfile
+                    context: .
         delegateSelectors:
           - harness-delegate
