@@ -39,3 +39,26 @@ pipeline:
                     shell: Sh
                     image: docker:28
                     command: docker build -t harness-demo-app .
+              - step:
+                  type: Run
+                  name: Push Image
+                  identifier: Push_Image
+                  spec:
+                    shell: Sh
+                    image: docker:28
+                    command: |
+                      docker login trialtfe0xb.jfrog.io \
+                        -u "ssharma3105@rediffmail.com" \
+                        -p "<+secrets.getValue('password')>"
+
+                      docker tag harness-demo-app \
+                        trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:<+pipeline.sequenceId>
+
+                      docker push \
+                        trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:<+pipeline.sequenceId>
+
+                      docker tag harness-demo-app \
+                        trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:latest
+
+                      docker push \
+                        trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:latest
