@@ -1,0 +1,45 @@
+pipeline:
+  name: ci-build-assignment
+  identifier: cibuildassignment
+  projectIdentifier: Harness_Inc_Assignment
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: Assignment_Connector
+        build: <+input>
+  stages:
+    - stage:
+        name: Build and Push
+        identifier: Build_and_Push
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec:
+              imageSpec:
+                imageName: ubuntu-latest
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: Build and Push
+                  identifier: Build_and_Push
+                  spec:
+                    connectorRef: Jfrog_Docker
+                    repo: docker-local-docker
+                    tags:
+                      - "1"
+        delegateSelectors:
+          - harness-delegate
