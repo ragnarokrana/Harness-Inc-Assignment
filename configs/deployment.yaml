@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: harness-demo-app
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: harness-demo-app
+
+  template:
+    metadata:
+      labels:
+        app: harness-demo-app
+
+    spec:
+      containers:
+      - name: harness-demo-app
+
+        image: REPLACE_IMAGE
+
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 3000
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
