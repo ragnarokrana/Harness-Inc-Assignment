@@ -17,11 +17,12 @@ pipeline:
           cloneCodebase: true
           platform:
             os: Linux
-            arch: Amd64
+            arch: Arm64
           runtime:
-            type: Docker
+            type: Cloud
             spec:
-              harnessImageConnectorRef: account.harnessImage
+              imageSpec:
+                imageName: ubuntu-latest
           execution:
             steps:
               - step:
