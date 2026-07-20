@@ -36,37 +36,40 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Build
-                  identifier: Build
+                  name: Build Docker Image
+                  identifier: Build_Docker_Image
                   spec:
-                    connectorRef: Jfrog_Docker
-                    image: docker:28
                     shell: Sh
-                    command: docker build -t harness-demo-app .
-                    envVariables:
-                      username: ssharma3105@rediffmail.com
-                      password: <+secrets.getValue("password")>
+                    image: docker:28-cli
+                    privileged: true
+                    command: |
+                      docker build \
+                        -t harness-demo-app:<+pipeline.sequenceId> \
+                        .
               - step:
                   type: Run
-                  name: Push Image
+                  name: Push Image to JFrog
                   identifier: Push_Image
                   spec:
-                    connectorRef: Jfrog_Docker
-                    image: docker:28
                     shell: Sh
-                    command: |-
-                      docker login trialtfe0xb.jfrog.io \
-                        -u "ssharma3105@rediffmail.com" \
-                        -p "<+secrets.getValue('password')>"
+                    image: docker:28-cli
+                    privileged: true
+                    command: |
 
-                      docker tag harness-demo-app \
+                      docker login trialtfe0xb.jfrog.io \
+                        -u "YOUR_USERNAME" \
+                        -p "YOUR_ACCESS_TOKEN"
+
+                      docker tag \
+                        harness-demo-app:<+pipeline.sequenceId> \
                         trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:<+pipeline.sequenceId>
+
+                      docker tag \
+                        harness-demo-app:<+pipeline.sequenceId> \
+                        trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:latest
 
                       docker push \
                         trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:<+pipeline.sequenceId>
-
-                      docker tag harness-demo-app \
-                        trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:latest
 
                       docker push \
                         trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:latest
