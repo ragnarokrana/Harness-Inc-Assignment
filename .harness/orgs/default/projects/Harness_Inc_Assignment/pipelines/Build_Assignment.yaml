@@ -41,3 +41,5 @@ pipeline:
                     repo: <+stage.variables.DockerRepo>
                     tags:
                       - <+stage.variables.Tags>
+        delegateSelectors:
+          - harness-delegate
