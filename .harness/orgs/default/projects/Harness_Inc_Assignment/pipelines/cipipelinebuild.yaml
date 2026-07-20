@@ -9,6 +9,7 @@ pipeline:
       codebase:
         connectorRef: Assignment_Connector
         build: <+input>
+        sparseCheckout: []
   stages:
     - stage:
         name: Build
@@ -28,7 +29,9 @@ pipeline:
             arch: Amd64
           runtime:
             type: Cloud
-            spec: {}
+            spec:
+              imageSpec:
+                imageName: ubuntu-latest
           execution:
             steps:
               - step:
