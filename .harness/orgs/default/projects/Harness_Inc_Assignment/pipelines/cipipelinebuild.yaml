@@ -58,7 +58,7 @@ pipeline:
 
                       docker login trialtfe0xb.jfrog.io \
                         -u "<+secrets.getValue(\"jfrog_username\")>" \
-                        -p "<+secrets.getValue(\"password\")>"
+                        -p "<+secrets.getValue(\"jfrog_token\")>"
 
                       docker tag \
                         harness-demo-app:<+pipeline.sequenceId> \
