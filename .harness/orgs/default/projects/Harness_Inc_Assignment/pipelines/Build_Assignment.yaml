@@ -30,8 +30,8 @@ pipeline:
                   identifier: Build_and_Push
                   type: BuildAndPushDockerRegistry
                   spec:
-                    connectorRef: JFrog_Artifactory
-                    repo: docker-local/harness-demo-app
+                    connectorRef: Jfrog_Docker
+                    repo: docker-local-docker
                     tags:
                       - <+pipeline.sequenceId>
                     dockerfile: ./Dockerfile
