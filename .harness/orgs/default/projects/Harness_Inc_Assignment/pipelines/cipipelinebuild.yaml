@@ -57,8 +57,8 @@ pipeline:
                     command: |
 
                       docker login trialtfe0xb.jfrog.io \
-                        -u "<+secrets.getValue(\"jfrog_username\")>" \
-                        -p "<+secrets.getValue(\"jfrog_token\")>"
+                        -u "ssharma3105@rediffmail.com" \
+                        -p "cmVmdGtuOjAxOjE4MTYxMTEeyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiI2LXp1ZGo1angyZVFwRnJpMk1iTFBJWHBZOTBjNGt6VmZfNEZZNWR3d2JzIn0.eyJzdWIiOiJqZmFjQDAxa3h4ajh6NzRuMWV0MTNmNDJkdjQwZTRjL3VzZXJzL3NzaGFybWEzMTA1QHJlZGlmZm1haWwuY29tIiwic2NwIjoiYXBwbGllZC1wZXJtaXNzaW9ucy9hZG1pbiIsImF1ZCI6IipAKiIsImlzcyI6ImpmZmVAMDFreHhqOHo3NG4xZXQxM2Y0MmR2NDBlNGMiLCJleHAiOjE3ODcxNjkzNDEsImlhdCI6MTc4NDU3NzM0MSwianRpIjoiNDg4ZTZjY2MtZGFlNy00YjlhLWI5NWYtMWExYWJjNWYyMWE2IiwidGlkIjoiYTBkeGgzemhyZ3p3bCJ9.fPVhaNqAyQtEHXd89xETOzooToWq14Iv1XvelOMBBxbRmWJ7dIIcvp2wT4DoT-kbtB25BgXrhcMxI_eqlyoM5k8IOlQ94VBfZ7SZ5EmI0m34Bejijm4RStGe1sNfTnG6-9NzqQ_A1b7J7_1jLmbjCRyn0QZ3ji0Nf8LaZy9vzP-HnmF7Q9oNLatkCt5sZwr4dgDoy59Vyir-j1gxQKmgtohB9R7scutCwX3fncmnHqAEDvIZ6M2nQNbOUqa1-ySqGPZpUCrBHJ-4oTkeLJdkq6wvOfyb_8ILr0_u1I3FQTNOs1P8xPXWzw2fD1BIgTQtjMzUy4yKH74hW4QMY3YxBAxNTQ6b05CcFZMVXNCQ01ESncyVXZmQTd2SWNYTEdt"
 
                       docker tag \
                         harness-demo-app:<+pipeline.sequenceId> \
