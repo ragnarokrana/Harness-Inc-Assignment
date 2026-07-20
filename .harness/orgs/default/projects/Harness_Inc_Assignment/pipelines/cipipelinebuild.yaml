@@ -39,17 +39,22 @@ pipeline:
                   name: Build
                   identifier: Build
                   spec:
-                    shell: Sh
+                    connectorRef: Jfrog_Docker
                     image: docker:28
+                    shell: Sh
                     command: docker build -t harness-demo-app .
+                    envVariables:
+                      username: ssharma3105@rediffmail.com
+                      password: <+secrets.getValue("password")>
               - step:
                   type: Run
                   name: Push Image
                   identifier: Push_Image
                   spec:
-                    shell: Sh
+                    connectorRef: Jfrog_Docker
                     image: docker:28
-                    command: |
+                    shell: Sh
+                    command: |-
                       docker login trialtfe0xb.jfrog.io \
                         -u "ssharma3105@rediffmail.com" \
                         -p "<+secrets.getValue('password')>"
