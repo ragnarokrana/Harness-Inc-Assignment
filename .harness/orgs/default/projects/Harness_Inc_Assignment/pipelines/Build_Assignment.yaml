@@ -30,7 +30,7 @@ pipeline:
                   identifier: Build_and_Push
                   type: BuildAndPushDockerRegistry
                   spec:
-                    connectorRef: account.harnessImage
+                    connectorRef: JFrog_Artifactory
                     repo: docker-local/harness-demo-app
                     tags:
                       - <+pipeline.sequenceId>
