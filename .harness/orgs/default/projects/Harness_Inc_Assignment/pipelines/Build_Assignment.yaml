@@ -30,7 +30,7 @@ pipeline:
                   identifier: Build_and_Push
                   type: BuildAndPushDockerRegistry
                   spec:
-                    connectorRef: Jfrog_Docker
+                    connectorRef: Jfrog_Artifactory
                     repo: docker-local-docker/myapp
                     tags:
                       - <+pipeline.sequenceId>
