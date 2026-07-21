@@ -36,5 +36,3 @@ pipeline:
                       - <+pipeline.sequenceId>
                     dockerfile: ./Dockerfile
                     context: .
-        delegateSelectors:
-          - harness-delegate
