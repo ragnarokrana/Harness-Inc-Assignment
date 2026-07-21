@@ -31,7 +31,7 @@ pipeline:
                   type: BuildAndPushDockerRegistry
                   spec:
                     connectorRef: Jfrog_Docker
-                    repo: docker-local-docker
+                    repo: docker-local-docker/myapp
                     tags:
                       - <+pipeline.sequenceId>
                     dockerfile: ./Dockerfile
