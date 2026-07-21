@@ -1,0 +1,74 @@
+pipeline:
+  name: ci-cd-pipeline
+  identifier: cicdpipeline
+  projectIdentifier: Harness_Inc_Assignment
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: Assignment_Connector
+        build: <+input>
+  stages:
+    - stage:
+        name: Build and Push
+        identifier: Build_and_Push
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: false
+            override: true
+            paths: []
+          buildIntelligence:
+            enabled: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec:
+              imageSpec:
+                imageName: ubuntu-latest
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Build Docker Image
+                  identifier: Build_Docker_Image
+                  spec:
+                    shell: Sh
+                    image: docker:28-cli
+                    privileged: true
+                    command: |
+                      docker build \
+                        -t harness-demo-app:<+pipeline.sequenceId> \
+                        .
+              - step:
+                  type: Run
+                  name: Push Image to JFrog
+                  identifier: Push_Image
+                  spec:
+                    shell: Sh
+                    image: docker:28-cli
+                    privileged: true
+                    command: |
+
+                      docker login trialtfe0xb.jfrog.io \
+                        -u "<+secrets.getValue('jfrog_username')>" \
+                        -p "<+secrets.getValue('jfrog_token')>"
+
+                      docker tag \
+                        harness-demo-app:<+pipeline.sequenceId> \
+                        trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:<+pipeline.sequenceId>
+
+                      docker tag \
+                        harness-demo-app:<+pipeline.sequenceId> \
+                        trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:latest
+
+                      docker push \
+                        trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:<+pipeline.sequenceId>
+
+                      docker push \
+                        trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:latest
