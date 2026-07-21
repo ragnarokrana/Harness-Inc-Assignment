@@ -1,15 +1,11 @@
 apiVersion: v1
 kind: Service
-
 metadata:
-  name: harness-demo-service
-
+  name: harness-demo-app
 spec:
   selector:
     app: harness-demo-app
-
   ports:
   - port: 80
     targetPort: 3000
-
   type: ClusterIP
