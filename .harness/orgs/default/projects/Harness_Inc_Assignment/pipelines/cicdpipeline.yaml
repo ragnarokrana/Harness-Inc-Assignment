@@ -72,3 +72,29 @@ pipeline:
 
                       docker push \
                         trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:latest
+    - stage:
+        name: Deployment Approval
+        identifier: Deployment_Approval
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: Deployment Approval
+                  identifier: Deployment_Approval
+                  type: HarnessApproval
+                  timeout: 1d
+                  spec:
+                    approvalMessage: |-
+                      Please review the following information
+                      and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    approvers:
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                      userGroups:
+                        - account._account_all_users
+                    isAutoRejectEnabled: true
+                    approverInputs: []
+        tags: {}
