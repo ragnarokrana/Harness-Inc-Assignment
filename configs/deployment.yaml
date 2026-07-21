@@ -18,7 +18,7 @@ spec:
       containers:
       - name: harness-demo-app
 
-        image: REPLACE_IMAGE
+        image: trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:latest
 
         imagePullPolicy: Always
 
