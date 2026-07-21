@@ -15,10 +15,13 @@ spec:
         app: harness-demo-app
 
     spec:
+      imagePullSecrets:
+        - name: jfrog-secret
+        
       containers:
       - name: harness-demo-app
 
-        image: trialtfe0xb.jfrog.io/artifactory/docker-local-docker/harness-demo-app:latest
+        image: trialtfe0xb.jfrog.io/docker-local-docker/harness-demo-app:latest
 
         imagePullPolicy: Always
 
