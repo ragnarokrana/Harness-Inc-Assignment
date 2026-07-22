@@ -147,6 +147,21 @@ pipeline:
                         type: K8sCanaryDelete
                         timeout: 10m
                         spec: {}
+              - step:
+                  type: HarnessApproval
+                  name: Proceed for Rolling Deployment
+                  identifier: Proceed_for_Rolling_Deployment
+                  spec:
+                    approvalMessage: Please review the following information and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    isAutoRejectEnabled: true
+                    approvers:
+                      userGroups:
+                        - account._account_all_users
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                    approverInputs: []
+                  timeout: 1d
               - stepGroup:
                   name: Primary Deployment
                   identifier: primaryDeployment
